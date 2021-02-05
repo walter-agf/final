@@ -58,7 +58,6 @@ void MainWindow::on_defensivo_clicked()
         tipo = 0.05;
         radio = distancia * tipo;
         intento = new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y + radio,radio);
-        intento->actualizar();
         scene->addItem(intento);
         intento->getEsf()->set_vel(-80,50,intento->getEsf()->PX,intento->getEsf()->PY);
         timer->start(40);

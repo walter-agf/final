@@ -20,7 +20,7 @@ fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float masa_
 void fisicas::actualizar()
 {
     V = sqrt(pow(VX,2)+pow(VY,2));
-    angulo = atan2(VY,VX);
+    angulo = atan(VY/VX);
     AX = -((K*(V*V)*(R*R))/mass)*cos(angulo);
     AY = (-((K*(V*V)*(R*R))/mass)*sin(angulo))-G;
     PX = PX + ((VX*(dt)))+(((AX*(dt*dt)))/2);
