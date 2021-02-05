@@ -30,7 +30,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QLabel *label;
@@ -56,8 +56,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1600, 750);
-        MainWindow->setMaximumSize(QSize(1600, 750));
+        MainWindow->resize(1600, 770);
+        MainWindow->setMaximumSize(QSize(1600, 770));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/pictures/canon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -66,16 +66,16 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 0, 1282, 722));
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(1300, 20, 291, 289));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        graphicsView->setGeometry(QRect(0, 0, 1280, 740));
+        layoutWidget = new QWidget(centralwidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(1300, 20, 299, 289));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
         QFont font;
         font.setFamily(QString::fromUtf8("Verdana"));
@@ -86,52 +86,53 @@ public:
 
         verticalLayout->addWidget(label);
 
-        distancia = new QDoubleSpinBox(widget);
+        distancia = new QDoubleSpinBox(layoutWidget);
         distancia->setObjectName(QString::fromUtf8("distancia"));
-        distancia->setMaximum(1000000000000000044885712678075916785549312.000000000000000);
+        distancia->setMinimum(0.000000000000000);
+        distancia->setMaximum(4800.000000000000000);
 
         verticalLayout->addWidget(distancia);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setFont(font);
 
         verticalLayout->addWidget(label_2);
 
-        alt_def = new QDoubleSpinBox(widget);
+        alt_def = new QDoubleSpinBox(layoutWidget);
         alt_def->setObjectName(QString::fromUtf8("alt_def"));
-        alt_def->setMaximum(1000000000000000042420637374017961984.000000000000000);
+        alt_def->setMaximum(720.000000000000000);
 
         verticalLayout->addWidget(alt_def);
 
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setFont(font);
 
         verticalLayout->addWidget(label_3);
 
-        alt_ofe = new QDoubleSpinBox(widget);
+        alt_ofe = new QDoubleSpinBox(layoutWidget);
         alt_ofe->setObjectName(QString::fromUtf8("alt_ofe"));
-        alt_ofe->setMaximum(9999999999999999438119489974413630815797154428513196965888.000000000000000);
+        alt_ofe->setMaximum(720.000000000000000);
 
         verticalLayout->addWidget(alt_ofe);
 
 
         verticalLayout_2->addLayout(verticalLayout);
 
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setFont(font);
 
         verticalLayout_2->addWidget(label_4);
 
-        tiempo = new QLabel(widget);
+        tiempo = new QLabel(layoutWidget);
         tiempo->setObjectName(QString::fromUtf8("tiempo"));
         tiempo->setFont(font);
 
         verticalLayout_2->addWidget(tiempo);
 
-        lanzar = new QPushButton(widget);
+        lanzar = new QPushButton(layoutWidget);
         lanzar->setObjectName(QString::fromUtf8("lanzar"));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Verdana"));
@@ -187,10 +188,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Parcial Final", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Distanacia:", nullptr));
-        label_2->setText(QCoreApplication::translate("MainWindow", "Altura Defensiva:", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "Altura Ofensiva:", nullptr));
-        label_4->setText(QCoreApplication::translate("MainWindow", "Tiempo", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Distanacia(metros):", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Altura Defensiva(metros):", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "Altura Ofensiva(metros):", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", "Tiempo(metros)", nullptr));
         tiempo->setText(QCoreApplication::translate("MainWindow", "00:00", nullptr));
         lanzar->setText(QCoreApplication::translate("MainWindow", "Lanzar scena", nullptr));
         defensivo->setText(QCoreApplication::translate("MainWindow", "Generar disparo defensivo", nullptr));
