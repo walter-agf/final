@@ -22,11 +22,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::actualizar_central()
 {
-    intento->actualizar();
-    time += 0.04;
-    ui->tiempo->setText(QString::number(time));
-    if (intento->getEsf()->PY - radio <= 1){
-        intento->getEsf()->set_vel(intento->getEsf()->e*intento->getEsf()->VX,-1*intento->getEsf()->e*intento->getEsf()->VY,intento->getEsf()->PX,intento->getEsf()->PY + 0.04);
+    time += 0.01;
+    for (int i = 0; i < balas.size(); i++){
+
+        bala *bal = balas[i];
+        fisicas *fis = bal->getEsf();
+
+        tiempo_bala[i]+= 0.01;
+        bal->actualizar(tiempo_bala[i],bal->ini_x,bal->ini_y,bal->vel_y);
+        ui->tiempo->setText(QString::number(time));
+
+        //----------------------------------------
+        if (fis->PY <= radio){
+            balas.removeAt(i);
+            tiempo_bala.removeAt(i);
+        }
     }
 }
 
@@ -55,12 +65,14 @@ void MainWindow::on_defensivo_clicked()
 {
     if (avanzar == true){
         //-----------------------------------------------------------------------------------------------
-        tipo = 0.05;
+        tipo = 0.025;
+        time = 0;
         radio = distancia * tipo;
-        intento = new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y + radio,radio);
-        scene->addItem(intento);
-        intento->getEsf()->set_vel(-80,50,intento->getEsf()->PX,intento->getEsf()->PY);
-        timer->start(40);
+        balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
+        tiempo_bala.push_back(0);
+        scene->addItem(balas.back());
+        balas.back()->ingreso(6*(-1),8);//Aqui ingreso una velocidad en X y una velocidad en Y
+        timer->start(ui->crono->value());
         ui->tiempo->setText(QString::number(time));
         //-----------------------------------------------------------------------------------------------
     }
@@ -73,7 +85,18 @@ void MainWindow::on_defensivo_clicked()
 
 void MainWindow::on_ofensivo_clicked()
 {
-    if (avanzar == true){}
+    if (avanzar == true){
+        tipo = 0.05;
+        time = 0;
+        radio = distancia * tipo;
+        balas.push_back(new bala(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y,radio));
+        tiempo_bala.push_back(0);
+        scene->addItem(balas.back());
+        balas.back()->ingreso(6*(1),8);//Aqui ingreso una velocidad en X y una velocidad en Y
+        timer->start(ui->crono->value());
+        ui->tiempo->setText(QString::number(time));
+        //-----------------------------------------------------------------------------------------------
+    }
     else if (avanzar == false){
         val = "";
         val += "La scena todavia no ha sido lanzada\nlance primero la scena.";

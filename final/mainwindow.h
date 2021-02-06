@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <math.h>
+#include <QList>
 //_________________________________________
 using namespace std;
 #include "base.h"
@@ -31,7 +32,8 @@ public:
     QString val = "";
     base *suelo_ofe = nullptr;
     base *suelo_def = nullptr;
-    bala *intento = nullptr;
+    QList<bala*> balas;
+    QList<float> tiempo_bala;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0;
     float tipo = 0;
 

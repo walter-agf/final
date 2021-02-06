@@ -17,16 +17,22 @@ fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float masa_
     dt = 0.1; //delta tiempo
 }
 
-void fisicas::actualizar()
+void fisicas::actualizar(float time, double x, double y, double vy)
 {
-    V = sqrt(pow(VX,2)+pow(VY,2));
-    angulo = atan(VY/VX);
-    AX = -((K*(V*V)*(R*R))/mass)*cos(angulo);
-    AY = (-((K*(V*V)*(R*R))/mass)*sin(angulo))-G;
-    PX = PX + ((VX*(dt)))+(((AX*(dt*dt)))/2);
-    PY = PY + ((VY*(dt)))+(((AY*(dt*dt)))/2);
-    VX = VX + AX*dt;
-    VY = VY + AY*dt;
+//    V = sqrt(pow(VX,2)+pow(VY,2));
+//    angulo = atan(VY/VX);
+    //Fuerza de resitencia del aire es igual a -> FR = K*pow(V,2)
+    //_____________________________________________________________
+//    FR = K * pow(VX,2);
+//    PX = x + VX * time;
+//    VX = VX - FR;
+//    FR = K * pow(VY,2);
+//    PY = y*time - ((G*pow(time,2))/2);
+//    VY = vy - G*time;
+    //_____________________________________________________________
+    PX += VX * time;
+    PY += (vy*time)-((G*pow(time,2))/2);
+    VY = vy - (G*time);
 }
 
 

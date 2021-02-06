@@ -8,7 +8,7 @@ class fisicas
 {
 public:
     fisicas(float posX_,float posY_,float velX_,float velY_,float masa_,float radio_,float K_,float e_);
-    void actualizar();
+    void actualizar(float time, double x, double y, double vy);
     // Metodos
     float getPX() const;
     float getPY() const;
@@ -30,6 +30,7 @@ public:
     float AY; //acel en y
     float G; //gravedad
     float K; //Resistencia del aire
+    float FR;//Fuerza de resistencia
     float e; //Coeficiente de restitucion
     float V; //vector de velocidad
     float dt; //delta tiempo
