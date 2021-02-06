@@ -4,6 +4,8 @@ fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float radio
 {
     PX = posX_; //pos en x
     PY = posY_; //pos en y
+    pos_inicial_x = posX_;
+    pos_inicial_y = posY_;
     R = radio_; //radio del cuerpo
     VX = velX_; //vel en x
     VY = velY_; //vel en y
@@ -13,8 +15,8 @@ fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float radio
 
 void fisicas::actualizar(float time, double vy)
 {
-    PX += VX * time;
-    PY += (vy*time)-((G*pow(time,2))/2);
+    PX = pos_inicial_x + (VX * time);
+    PY = pos_inicial_y + (vy*time)-((G*pow(time,2))/2);
     VY = vy - (G*time);
 }
 

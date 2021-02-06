@@ -18,6 +18,8 @@ using namespace std;
 #include "rastro.h"
 #include "ran_cannon.h"
 
+#define PI 3.14159265
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -46,6 +48,11 @@ public:
     QList<rastro*> ubi;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0;
     float tipo = 0;
+    //______________________listas de posibles disparos_______
+    QList<string> opciones;
+    QList<string> disparos(double distancia, double alt_aliada, double altura_enemiga);
+    double velocidad_x,velocidad_y;
+    string valor;
 
 public slots:
     void actualizar_central();

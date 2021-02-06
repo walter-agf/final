@@ -21,6 +21,8 @@ public:
     //Variables
     float PX; //pos en x
     float PY; //pos en y
+    float pos_inicial_x; //pos en x
+    float pos_inicial_y; //pos en y
     float R; //radio del cuerpo
     float VX; //vel en x
     float VY; //vel en y

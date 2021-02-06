@@ -20,6 +20,62 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QList<string> MainWindow::disparos(double distancia, double alt_aliada, double altura_enemiga)
+{
+    QList<string> posibilidades;
+    //_______________________________________________________________________________________
+
+    distancia -= distancia*tipo;
+
+    double angulo_menor, angulo_mayor;
+    double posx = 0,posy = alt_aliada;
+    double vel_x = 0, vel_y = 0,tiempo = 0;
+
+    string valor = "";
+
+
+    if (alt_aliada >= altura_enemiga && distancia != 0){
+        angulo_mayor = PI/4;
+        angulo_menor = atan(-(alt_aliada-altura_enemiga)/distancia);
+    }
+    else if (alt_aliada < altura_enemiga){
+        angulo_menor = atan((altura_enemiga-alt_aliada)/distancia);
+        if (angulo_menor < PI/2 - (PI/180)*24){
+            angulo_mayor = angulo_menor + (PI/180)*24;
+        }
+        else {angulo_mayor = PI/2;}
+    }
+
+    for (double e = angulo_mayor; e > angulo_menor; e -= PI /180){
+        valor = "";
+        for (float velocida = 1;;velocida+=1){
+            posy = alt_aliada;
+//            posx = 0;
+            vel_x = cos(e) * velocida;
+            tiempo = distancia / vel_x;
+            vel_y = sin(e)*velocida;
+            posy = alt_aliada + (vel_y*tiempo)-((9.81*pow(tiempo,2))/2);
+            if (posy >= altura_enemiga -(distancia*tipo) && posy < altura_enemiga +(distancia*tipo)){
+//                posx += vel_x*tiempo;
+//                valor += to_string(posx);
+//                valor += " ";
+//                valor += to_string(posy);
+//                valor += " ";
+                valor += to_string(vel_x);
+                valor += " ";
+                valor += to_string(vel_y);
+                valor += " ";
+                valor += to_string(tiempo);
+                valor += "R";
+                posibilidades.push_back(valor);
+                break;
+            }
+        }
+    }
+    //---------------------------------------------------------------------------------------
+    return posibilidades;
+}
+
 void MainWindow::actualizar_central()
 {
     time += 0.01;
@@ -73,7 +129,7 @@ void MainWindow::on_lanzar_clicked()
     alt_ofe = ui->alt_ofe->value();//altura del cañon ofensivo
     alt_def = ui->alt_def->value();//altura del cañon defensivo
     //Creacion de la base ofensiva
-    suelo_ofe = new base (2400 - distancia * 0.01 - (distancia/2),720 - alt_ofe,distancia*0.1,alt_ofe);
+    suelo_ofe = new base (2400 - distancia * 0.05 - (distancia/2),720 - alt_ofe,distancia*0.1,alt_ofe);
     can_ofe = new cannon (this);
     can_ofe->actualizar(suelo_ofe->x + suelo_ofe->w/2,720 - alt_ofe -28);
     scene->addItem(can_ofe);
@@ -83,7 +139,7 @@ void MainWindow::on_lanzar_clicked()
     ran_ofe->posicion(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y);
     scene->addItem(ran_ofe);
     //Creacion de la base defensiva
-    suelo_def = new base (2400 + (distancia/2) - distancia*0.1,720 - alt_def,distancia*0.1,alt_def);
+    suelo_def = new base (2400 + (distancia/2) - distancia*0.05,720 - alt_def,distancia*0.1,alt_def);
     scene->addItem(suelo_def);
     can_def = new cannon_d (this);
     can_def->actualizar(suelo_def->x + suelo_def->w/2,720 - alt_def -28);
@@ -104,15 +160,29 @@ void MainWindow::on_defensivo_clicked()
         balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
         balas.back()->color = 2;
         scene->addItem(balas.back());
-        balas.back()->ingreso(0*(-1),10);//Aqui ingreso una velocidad en X y una velocidad en Y
-        timer->start(ui->crono->value());
-        ui->tiempo->setText(QString::number(time));
-        //---------------------------------------------------
-        ocho.push_back(new bullet(this));
-        ocho.back()->actualizar(balas.back()->getEsf()->PX,balas.back()->getEsf()->PY);
-        scene->addItem(ocho.back());
-        //---------------------------------------------------
-        //-----------------------------------------------------------------------------------------------
+        //________Calculo de disparo___________________________
+        opciones = disparos(distancia,alt_def,alt_ofe);
+        if (opciones.size() > 0){
+            valor = opciones.at(0);
+            velocidad_x = stod(valor.substr(0,valor.find(' ')));
+            valor = valor.substr(valor.find(' ')+1,valor.find('R'));
+            velocidad_y = stod(valor.substr(0,valor.find(' ')));
+            //-----------------------------------------------------
+            balas.back()->ingreso(velocidad_x*(-1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
+            timer->start(ui->crono->value());
+            ui->tiempo->setText(QString::number(time));
+            //---------------------------------------------------
+            ocho.push_back(new bullet(this));
+            ocho.back()->actualizar(balas.back()->getEsf()->PX,balas.back()->getEsf()->PY);
+            scene->addItem(ocho.back());
+            //---------------------------------------------------
+            //-----------------------------------------------------------------------------------------------
+        }
+        else{
+            val = "";
+            val += "No existen ningun disparo posible\na ejecutar en la scena.";
+            QMessageBox::about (this,"Parcial Final", val);
+        }
     }
     else if (avanzar == false){
         val = "";
