@@ -14,6 +14,6 @@ QRectF base::boundingRect() const
 
 void base::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setBrush(Qt::darkYellow);
+    painter->setBrush(Qt::yellow);
     painter->drawRect(boundingRect());
 }

@@ -24,6 +24,7 @@ public:
     double vel_y;//velocidad inicial en y
     double tiempo_bala;//velocidad inicial en y
     float rango;
+    int color = 0;
     fisicas *getEsf();
     fisicas *esf;
 };

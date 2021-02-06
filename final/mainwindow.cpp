@@ -39,7 +39,6 @@ void MainWindow::actualizar_central()
             for (int a=0; a < ubi.size();a++){scene->removeItem(ubi[a]);}
             ubi.clear();
             balas.removeAt(i);
-            //scene->removeItem(ocho.at(i));
             ocho.at(i);
         }
         //_________________________________________
@@ -56,15 +55,19 @@ void MainWindow::actualizar_central()
 void MainWindow::on_lanzar_clicked()
 {
     avanzar = true;
-    if (suelo_def != nullptr && suelo_ofe != nullptr && can_ofe != nullptr && can_def != nullptr){
+    if (suelo_def != nullptr && suelo_ofe != nullptr && can_ofe != nullptr && can_def != nullptr && ran_ofe != nullptr && ran_def != nullptr){
         scene->removeItem(suelo_def);
         scene->removeItem(suelo_ofe);
         scene->removeItem(can_ofe);
         scene->removeItem(can_def);
+        scene->removeItem(ran_ofe);
+        scene->removeItem(ran_def);
         suelo_def = nullptr;
         suelo_ofe = nullptr;
         can_ofe = nullptr;
         can_def = nullptr;
+        ran_ofe = nullptr;
+        ran_def = nullptr;
     }
     distancia = ui->distancia->value();//distancia de los cañones
     alt_ofe = ui->alt_ofe->value();//altura del cañon ofensivo
@@ -72,15 +75,23 @@ void MainWindow::on_lanzar_clicked()
     //Creacion de la base ofensiva
     suelo_ofe = new base (2400 - distancia * 0.01 - (distancia/2),720 - alt_ofe,distancia*0.1,alt_ofe);
     can_ofe = new cannon (this);
-    can_ofe->actualizar(2400 + distancia * 0.05 - (distancia/2),720 - alt_ofe - 28);
+    can_ofe->actualizar(suelo_ofe->x + suelo_ofe->w/2,720 - alt_ofe -28);
     scene->addItem(can_ofe);
     scene->addItem(suelo_ofe);
+    //_____________________________________________________________
+    ran_ofe = new ran_cannon (distancia*0.025);
+    ran_ofe->posicion(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y);
+    scene->addItem(ran_ofe);
     //Creacion de la base defensiva
     suelo_def = new base (2400 + (distancia/2) - distancia*0.1,720 - alt_def,distancia*0.1,alt_def);
     scene->addItem(suelo_def);
     can_def = new cannon_d (this);
-    can_def->actualizar(2400 - distancia * 0.05 + (distancia/2),720 - alt_def - 28);
+    can_def->actualizar(suelo_def->x + suelo_def->w/2,720 - alt_def -28);
     scene->addItem(can_def);
+    //_____________________________________________________________
+    ran_def = new ran_cannon (distancia*0.05);
+    ran_def->posicion(suelo_def->x + suelo_def->w/2,720 - suelo_def->y);
+    scene->addItem(ran_def);
 }
 
 void MainWindow::on_defensivo_clicked()
@@ -91,6 +102,7 @@ void MainWindow::on_defensivo_clicked()
         time = 0;
         radio = distancia * tipo;
         balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
+        balas.back()->color = 2;
         scene->addItem(balas.back());
         balas.back()->ingreso(0*(-1),10);//Aqui ingreso una velocidad en X y una velocidad en Y
         timer->start(ui->crono->value());
@@ -116,6 +128,7 @@ void MainWindow::on_ofensivo_clicked()
         time = 0;
         radio = distancia * tipo;
         balas.push_back(new bala(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y,radio));
+        balas.back()->color = 1;
         scene->addItem(balas.back());
         balas.back()->ingreso(6*(1),8);//Aqui ingreso una velocidad en X y una velocidad en Y
         timer->start(ui->crono->value());

@@ -26,11 +26,27 @@ QRectF bala::boundingRect() const
 
 void bala::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setBrush(Qt::transparent);
-    QPen pain (Qt::blue);
-    pain.setWidth(3);
-    painter->setPen(pain);
-    painter->drawEllipse(boundingRect());
+    if (color == 1){
+        painter->setBrush(Qt::transparent);
+        QPen pain (Qt::blue);
+        pain.setWidth(3);
+        painter->setPen(pain);
+        painter->drawEllipse(boundingRect());
+    }
+    else if (color == 2){
+        painter->setBrush(Qt::transparent);
+        QPen pain (Qt::green);
+        pain.setWidth(3);
+        painter->setPen(pain);
+        painter->drawEllipse(boundingRect());
+    }
+    else if (color == 3){
+        painter->setBrush(Qt::transparent);
+        QPen pain (Qt::red);
+        pain.setWidth(3);
+        painter->setPen(pain);
+        painter->drawEllipse(boundingRect());
+    }
 }
 
 void bala::actualizar(float time, double vy)

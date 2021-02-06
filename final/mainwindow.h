@@ -16,6 +16,7 @@ using namespace std;
 #include "cannon_d.h"
 #include "bullet.h"
 #include "rastro.h"
+#include "ran_cannon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +39,8 @@ public:
     base *suelo_def = nullptr;
     cannon *can_ofe= nullptr;
     cannon_d *can_def= nullptr;
+    ran_cannon *ran_ofe= nullptr;
+    ran_cannon *ran_def= nullptr;
     QList<bala*> balas;
     QList<bullet*> ocho;
     QList<rastro*> ubi;

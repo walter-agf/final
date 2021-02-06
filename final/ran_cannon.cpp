@@ -13,7 +13,7 @@ QRectF ran_cannon::boundingRect() const
 void ran_cannon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setBrush(Qt::transparent);
-    QPen pain (Qt::darkGreen);
+    QPen pain (Qt::darkYellow);
     pain.setWidth(5);
     painter->setPen(pain);
     painter->drawEllipse(boundingRect());
