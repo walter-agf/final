@@ -50,7 +50,7 @@ public:
     //______________________listas de posibles disparos_______
     QList<string> opciones;
     QList<string> disparos(double distancia, double alt_aliada, double altura_enemiga);
-    QList<string> contrataque(double ve_x, double vel_, double retraso);
+    QList<string> contrataque(double ve_x, double ve_y, double dis, double pos_y_enemiga, double pos_y_propia, double retraso);
     double velocidad_x,velocidad_y;
     string valor;
 

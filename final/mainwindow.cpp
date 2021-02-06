@@ -63,9 +63,40 @@ QList<string> MainWindow::disparos(double distancia, double alt_aliada, double a
     return posibilidades;
 }
 
-QList<string> MainWindow::contrataque(double ve_x, double vel_, double retraso)
+QList<string> MainWindow::contrataque(double ve_x, double ve_y, double dis, double pos_y_enemiga, double pos_y_propia, double retraso)
 {
-
+    QList<string> posibilidades;
+    double posicion_enemiga, pos_x_propia;
+    double cambio;
+    for (double tiempo = 0.01;;tiempo += 0.01){
+        posicion_enemiga = (-1)*dis + (ve_x * tiempo);
+        for (float velocidad = 0.01;;velocidad += 0.01){
+            pos_x_propia = velocidad * tiempo;
+            if ((-1)* distancia * tipo < posicion_enemiga - pos_x_propia && posicion_enemiga - pos_x_propia > distancia * tipo){
+                cambio = velocidad;
+                break;
+            }
+        }
+        if (tiempo > retraso){
+            valor += to_string(cambio);
+            valor += " ";
+            posicion_enemiga = pos_y_enemiga + (ve_y*time)-((9.81*pow(tiempo,2))/2);
+            for (float velocidad = 0.01;;velocidad += 0.01){
+                pos_y_propia = velocidad * tiempo;
+                if ((-1)* distancia * tipo < posicion_enemiga - pos_y_propia && posicion_enemiga - pos_y_propia > distancia * tipo){
+                    cambio = velocidad;
+                    break;
+                }
+            }
+            valor += to_string(cambio);
+            valor += " ";
+            valor += to_string(tiempo);
+            valor += "R";
+            posibilidades.push_back(valor);
+            break;
+        }
+    }
+    return posibilidades;
 }
 
 void MainWindow::actualizar_central()
@@ -230,7 +261,39 @@ void MainWindow::on_ofensivo_clicked()
 
 void MainWindow::on_simple_clicked()
 {
-    if (avanzar == true){}
+    if (avanzar == true){
+        //-----------------------------------------------------------------------------------------------
+        boton = 1;
+        tipo = 0.025;
+        time = 0;
+        radio = distancia * tipo;
+        //________Calculo de disparo___________________________
+        opciones = disparos(distancia,alt_def,alt_ofe);
+        if (opciones.size() > 0){
+            valor = opciones.at((opciones.size())/2);
+            velocidad_x = stod(valor.substr(0,valor.find(' ')));
+            valor = valor.substr(valor.find(' ')+1,valor.find('R'));
+            velocidad_y = stod(valor.substr(0,valor.find(' ')));
+            //-----------------------------------------------------
+            balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
+            balas.back()->color = 2;
+            scene->addItem(balas.back());
+            balas.back()->ingreso(velocidad_x*(-1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
+            timer->start(ui->crono->value());
+            ui->tiempo->setText(QString::number(time));
+            //---------------------------------------------------
+            ocho.push_back(new bullet(this));
+            ocho.back()->actualizar(balas.back()->getEsf()->PX,balas.back()->getEsf()->PY);
+            scene->addItem(ocho.back());
+            //---------------------------------------------------
+            //-----------------------------------------------------------------------------------------------
+        }
+        else{
+            val = "";
+            val += "No existen ningun disparo posible\na ejecutar en la scena.";
+            QMessageBox::about (this,"Parcial Final", val);
+        }
+    }
     else if (avanzar == false){
         val = "";
         val += "La scena todavia no ha sido lanzada\nlance primero la scena.";
