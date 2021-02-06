@@ -155,7 +155,7 @@ public:
 
         distancia = new QDoubleSpinBox(widget1);
         distancia->setObjectName(QString::fromUtf8("distancia"));
-        distancia->setMinimum(0.000000000000000);
+        distancia->setMinimum(102.000000000000000);
         distancia->setMaximum(4800.000000000000000);
         distancia->setValue(300.000000000000000);
 
