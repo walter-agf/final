@@ -22,9 +22,10 @@ public:
     double ini_x;//posicion en x inicial
     double ini_y;//posicion en y inicial
     double vel_y;//velocidad inicial en y
+    double tiempo_bala;//velocidad inicial en y
+    float rango;
     fisicas *getEsf();
     fisicas *esf;
-    QLabel *tiempo_bala;
 };
 
 #endif // BALA_H

@@ -28,16 +28,26 @@ void MainWindow::actualizar_central()
         bala *bal = balas[i];
         fisicas *fis = bal->getEsf();
 
-        tiempo_bala[i]+= 0.01;
-        bal->actualizar(tiempo_bala[i],bal->vel_y);
+        bal->tiempo_bala += 0.01;
+        bal->rango += 1;
+        bal->actualizar(bal->tiempo_bala,bal->vel_y);
         ocho.at(i)->actualizar(fis->PX,fis->PY);
         ui->tiempo->setText(QString::number(time));
 
         //----------------------------------------
         if (fis->PY <= radio){
+            for (int a=0; a < ubi.size();a++){scene->removeItem(ubi[a]);}
+            ubi.clear();
             balas.removeAt(i);
-            tiempo_bala.removeAt(i);
+            scene->removeItem(ocho.at(i));
             ocho.at(i);
+        }
+        //_________________________________________
+        if (bal->rango == 10){//rango de imprecion de paso
+            ubi.push_back(new rastro());
+            ubi.back()->posicion(fis->PX,fis->PY);
+            scene->addItem(ubi.back());
+            bal->rango = 0;
         }
     }
 }
@@ -81,7 +91,6 @@ void MainWindow::on_defensivo_clicked()
         time = 0;
         radio = distancia * tipo;
         balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
-        tiempo_bala.push_back(0);
         scene->addItem(balas.back());
         balas.back()->ingreso(0*(-1),10);//Aqui ingreso una velocidad en X y una velocidad en Y
         timer->start(ui->crono->value());
@@ -107,7 +116,6 @@ void MainWindow::on_ofensivo_clicked()
         time = 0;
         radio = distancia * tipo;
         balas.push_back(new bala(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y,radio));
-        tiempo_bala.push_back(0);
         scene->addItem(balas.back());
         balas.back()->ingreso(6*(1),8);//Aqui ingreso una velocidad en X y una velocidad en Y
         timer->start(ui->crono->value());

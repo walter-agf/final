@@ -8,6 +8,8 @@ bala::bala(double posx, double posy, double radio)
     velx = 0; //velocidad en x
     vely = 0; //velocidad en y
     e = 0.4; //coeficiente de restitucion
+    tiempo_bala = 0;
+    rango = 0;
     esf = new fisicas(posx,posy,velx,vely,radio,e);
 }
 
@@ -23,7 +25,6 @@ QRectF bala::boundingRect() const
 
 void bala::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
     painter->setBrush(Qt::transparent);
     QPen pain (Qt::blue);
     pain.setWidth(3);

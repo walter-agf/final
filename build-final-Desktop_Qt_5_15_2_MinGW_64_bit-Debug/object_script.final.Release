@@ -6,5 +6,6 @@ release/cannon_d.o
 release/fisicas.o
 release/main.o
 release/mainwindow.o
+release/rastro.o
 release/qrc_datos.o
 release/moc_mainwindow.o

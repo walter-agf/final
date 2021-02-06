@@ -16,7 +16,8 @@ SOURCES += \
     cannon_d.cpp \
     fisicas.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    rastro.cpp
 
 HEADERS += \
     bala.h \
@@ -25,7 +26,8 @@ HEADERS += \
     cannon.h \
     cannon_d.h \
     fisicas.h \
-    mainwindow.h
+    mainwindow.h \
+    rastro.h
 
 FORMS += \
     mainwindow.ui

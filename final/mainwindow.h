@@ -15,6 +15,7 @@ using namespace std;
 #include "cannon.h"
 #include "cannon_d.h"
 #include "bullet.h"
+#include "rastro.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,7 +40,7 @@ public:
     cannon_d *can_def= nullptr;
     QList<bala*> balas;
     QList<bullet*> ocho;
-    QList<float> tiempo_bala;
+    QList<rastro*> ubi;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0;
     float tipo = 0;
 
