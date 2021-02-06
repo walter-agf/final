@@ -15,7 +15,6 @@ using namespace std;
 #include "cannon.h"
 #include "cannon_d.h"
 #include "bullet.h"
-#include "rastro.h"
 #include "ran_cannon.h"
 
 #define PI 3.14159265
@@ -45,12 +44,13 @@ public:
     ran_cannon *ran_def= nullptr;
     QList<bala*> balas;
     QList<bullet*> ocho;
-    QList<rastro*> ubi;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0;
     float tipo = 0;
+    int boton = 0;
     //______________________listas de posibles disparos_______
     QList<string> opciones;
     QList<string> disparos(double distancia, double alt_aliada, double altura_enemiga);
+    QList<string> contrataque(double ve_x, double vel_, double retraso);
     double velocidad_x,velocidad_y;
     string valor;
 

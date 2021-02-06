@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QPen>
 #include "fisicas.h"
+#include "rastro.h"
 
 class bala: public QGraphicsItem
 {
@@ -27,6 +28,7 @@ public:
     int color = 0;
     fisicas *getEsf();
     fisicas *esf;
+    QList<rastro*> ubi;
 };
 
 #endif // BALA_H
