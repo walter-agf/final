@@ -27,7 +27,7 @@ QRectF bala::boundingRect() const
 void bala::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     if (color == 1){
-        painter->setBrush(Qt::transparent);
+        painter->setBrush(Qt::cyan);
         QPen pain (Qt::blue);
         pain.setWidth(3);
         painter->setPen(pain);
