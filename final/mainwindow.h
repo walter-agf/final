@@ -12,6 +12,9 @@
 using namespace std;
 #include "base.h"
 #include "bala.h"
+#include "cannon.h"
+#include "cannon_d.h"
+#include "bullet.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,7 +35,10 @@ public:
     QString val = "";
     base *suelo_ofe = nullptr;
     base *suelo_def = nullptr;
+    cannon *can_ofe= nullptr;
+    cannon_d *can_def= nullptr;
     QList<bala*> balas;
+    QList<bullet*> ocho;
     QList<float> tiempo_bala;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0;
     float tipo = 0;

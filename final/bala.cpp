@@ -4,13 +4,11 @@ bala::bala(double posx, double posy, double radio)
 {
     ini_x = posx;
     ini_y = posy;
-    float velx,vely,mass,K,e;
-    mass = 12; //Masa
+    float velx,vely,e;
     velx = 0; //velocidad en x
     vely = 0; //velocidad en y
-    K = 0.08; //resitencia en del aire
     e = 0.4; //coeficiente de restitucion
-    esf = new fisicas(posx,posy,velx,vely,mass,radio,K,e);
+    esf = new fisicas(posx,posy,velx,vely,radio,e);
 }
 
 bala::~bala()
@@ -33,9 +31,9 @@ void bala::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawEllipse(boundingRect());
 }
 
-void bala::actualizar(float time, double x, double y, double vy)
+void bala::actualizar(float time, double vy)
 {
-    esf->actualizar(time, x, y,vy);
+    esf->actualizar(time,vy);
     setPos(esf->getPX(),720-esf->getPY());
 }
 

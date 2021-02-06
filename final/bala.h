@@ -17,7 +17,7 @@ public:
     ~bala();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
-    void actualizar(float time, double x, double y, double vy);
+    void actualizar(float time, double vy);
     void ingreso(double vx, double vy);
     double ini_x;//posicion en x inicial
     double ini_y;//posicion en y inicial

@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>pictures/canon.png</file>
         <file>pictures/desert-1170055.jpg</file>
+        <file>pictures/bola-negra_24.png</file>
+        <file>pictures/canon_64.png</file>
+        <file>pictures/canon_64_2.png</file>
     </qresource>
 </RCC>

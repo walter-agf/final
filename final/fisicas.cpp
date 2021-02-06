@@ -1,35 +1,18 @@
 #include "fisicas.h"
 
-fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float masa_, float radio_, float K_, float e_)
+fisicas::fisicas(float posX_, float posY_, float velX_, float velY_, float radio_, float e_)
 {
     PX = posX_; //pos en x
     PY = posY_; //pos en y
-    mass = masa_; // masa del cuerpo
     R = radio_; //radio del cuerpo
     VX = velX_; //vel en x
     VY = velY_; //vel en y
-    AX = 0; //acel en x
-    AY = 0; //acel en y
     G = 9.81; //gravedad
-    K = K_; //Resistencia del aire
     e = e_; //Coeficiente de restitucion
-    V = 0; //vector de velocidad
-    dt = 0.1; //delta tiempo
 }
 
-void fisicas::actualizar(float time, double x, double y, double vy)
+void fisicas::actualizar(float time, double vy)
 {
-//    V = sqrt(pow(VX,2)+pow(VY,2));
-//    angulo = atan(VY/VX);
-    //Fuerza de resitencia del aire es igual a -> FR = K*pow(V,2)
-    //_____________________________________________________________
-//    FR = K * pow(VX,2);
-//    PX = x + VX * time;
-//    VX = VX - FR;
-//    FR = K * pow(VY,2);
-//    PY = y*time - ((G*pow(time,2))/2);
-//    VY = vy - G*time;
-    //_____________________________________________________________
     PX += VX * time;
     PY += (vy*time)-((G*pow(time,2))/2);
     VY = vy - (G*time);
@@ -39,11 +22,6 @@ void fisicas::actualizar(float time, double x, double y, double vy)
 float fisicas::getPY() const
 {
     return PY;
-}
-
-float fisicas::getMass() const
-{
-    return mass;
 }
 
 float fisicas::getR() const
