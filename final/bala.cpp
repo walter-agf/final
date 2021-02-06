@@ -4,6 +4,7 @@ bala::bala(double posx, double posy, double radio)
 {
     ini_x = posx;
     ini_y = posy;
+    setPos(ini_x,ini_y);
     float velx,vely,e;
     velx = 0; //velocidad en x
     vely = 0; //velocidad en y

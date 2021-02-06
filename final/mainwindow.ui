@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>770</height>
+    <height>800</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
     <width>1600</width>
-    <height>770</height>
+    <height>800</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -361,8 +361,23 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuOpciones">
+    <property name="title">
+     <string>Opciones</string>
+    </property>
+    <addaction name="actionPausa"/>
+   </widget>
+   <addaction name="menuOpciones"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionPausa">
+   <property name="text">
+    <string>Pausa</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="datos.qrc"/>

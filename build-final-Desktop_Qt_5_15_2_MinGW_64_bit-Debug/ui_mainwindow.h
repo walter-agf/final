@@ -11,12 +11,14 @@
 
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
@@ -30,6 +32,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionPausa;
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
     QWidget *widget;
@@ -57,18 +60,21 @@ public:
     QPushButton *neutralizar;
     QPushButton *simulacion;
     QMenuBar *menubar;
+    QMenu *menuOpciones;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1600, 770);
-        MainWindow->setMaximumSize(QSize(1600, 770));
+        MainWindow->resize(1600, 800);
+        MainWindow->setMaximumSize(QSize(1600, 800));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/pictures/canon.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         MainWindow->setIconSize(QSize(48, 48));
+        actionPausa = new QAction(MainWindow);
+        actionPausa->setObjectName(QString::fromUtf8("actionPausa"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
@@ -213,10 +219,15 @@ public:
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1600, 25));
+        menuOpciones = new QMenu(menubar);
+        menuOpciones->setObjectName(QString::fromUtf8("menuOpciones"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menuOpciones->menuAction());
+        menuOpciones->addAction(actionPausa);
 
         retranslateUi(MainWindow);
 
@@ -226,6 +237,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Parcial Final", nullptr));
+        actionPausa->setText(QCoreApplication::translate("MainWindow", "Pausa", nullptr));
+#if QT_CONFIG(shortcut)
+        actionPausa->setShortcut(QCoreApplication::translate("MainWindow", "Esc", nullptr));
+#endif // QT_CONFIG(shortcut)
         label_5->setText(QCoreApplication::translate("MainWindow", "Velocidad", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "Segundos", nullptr));
         tiempo->setText(QCoreApplication::translate("MainWindow", "00:00", nullptr));
@@ -241,6 +256,7 @@ public:
         contrataque->setText(QCoreApplication::translate("MainWindow", "Defensa con contrataque", nullptr));
         neutralizar->setText(QCoreApplication::translate("MainWindow", "Neutralizacion efectiva", nullptr));
         simulacion->setText(QCoreApplication::translate("MainWindow", "Simulacion", nullptr));
+        menuOpciones->setTitle(QCoreApplication::translate("MainWindow", "Opciones", nullptr));
     } // retranslateUi
 
 };

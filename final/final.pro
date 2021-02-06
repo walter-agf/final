@@ -17,6 +17,7 @@ SOURCES += \
     fisicas.cpp \
     main.cpp \
     mainwindow.cpp \
+    ran_cannon.cpp \
     rastro.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     cannon_d.h \
     fisicas.h \
     mainwindow.h \
+    ran_cannon.h \
     rastro.h
 
 FORMS += \

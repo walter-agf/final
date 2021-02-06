@@ -35,11 +35,11 @@ void MainWindow::actualizar_central()
         ui->tiempo->setText(QString::number(time));
 
         //----------------------------------------
-        if (fis->PY <= radio){
+        if (fis->PY <= 12){
             for (int a=0; a < ubi.size();a++){scene->removeItem(ubi[a]);}
             ubi.clear();
             balas.removeAt(i);
-            scene->removeItem(ocho.at(i));
+            //scene->removeItem(ocho.at(i));
             ocho.at(i);
         }
         //_________________________________________
@@ -171,5 +171,15 @@ void MainWindow::on_simulacion_clicked()
         val = "";
         val += "La scena todavia no ha sido lanzada\nlance primero la scena.";
         QMessageBox::about (this,"Parcial Final", val);
+    }
+}
+
+void MainWindow::on_actionPausa_triggered()
+{
+    if (timer->isActive()){
+        timer->stop();
+    }
+    else {
+        timer->start(ui->crono->value());
     }
 }

@@ -61,6 +61,8 @@ private slots:
     void on_neutralizar_clicked();
 
     void on_simulacion_clicked();
+    void on_actionPausa_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
