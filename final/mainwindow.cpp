@@ -112,7 +112,7 @@ void MainWindow::actualizar_central()
             ocho.at(i)->actualizar(fis->PX,fis->PY);
             ui->tiempo->setText(QString::number(time));
             //----------------------------------------
-            if (fis->PY <= 12){
+            if (fis->PY <= -12){
                 for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
                 bal->ubi.clear();
                 balas.removeAt(i);
@@ -475,7 +475,7 @@ void MainWindow::actualizar_central()
             ocho.at(0)->actualizar(fis->PX,fis->PY);
             ui->tiempo->setText(QString::number(time));
             //----------------------------------------
-            if (fis->PY <= 12){
+            if (fis->PY <= -12){
                 for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
                 bal->ubi.clear();
                 balas.removeAt(0);
@@ -499,7 +499,7 @@ void MainWindow::actualizar_central()
                 ocho.at(i)->actualizar(fis->PX,fis->PY);
                 ui->tiempo->setText(QString::number(time));
                 //----------------------------------------
-                if (fis->PY <= 12){
+                if (fis->PY <= -12){
                     for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
                     bal->ubi.clear();
                     balas.removeAt(i);
@@ -551,7 +551,7 @@ void MainWindow::actualizar_central()
                 ocho.at(i)->actualizar(fis->PX,fis->PY);
                 ui->tiempo->setText(QString::number(time));
                 //----------------------------------------
-                if (fis->PY <= 12){
+                if (fis->PY <= -12){
                     for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
                     bal->ubi.clear();
                     balas.removeAt(i);

@@ -1,0 +1,12 @@
+debug/bala.o
+debug/base.o
+debug/bullet.o
+debug/cannon.o
+debug/cannon_d.o
+debug/fisicas.o
+debug/main.o
+debug/mainwindow.o
+debug/ran_cannon.o
+debug/rastro.o
+debug/qrc_datos.o
+debug/moc_mainwindow.o
