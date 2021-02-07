@@ -34,7 +34,7 @@ public:
     QGraphicsScene *scene;
     QTimer *timer;
     //______________________Variables_____
-    bool avanzar =  false;
+    bool avanzar =  false, repeticion = false;
     QString val = "";
     base *suelo_ofe = nullptr;
     base *suelo_def = nullptr;
@@ -46,13 +46,14 @@ public:
     QList<bullet*> ocho;
     double distancia = 0,alt_ofe=0,alt_def=0,time=0,radio = 0,altura_diparo =0,distancia_dis = 0;
     float tipo = 0;
-    int boton = 0, espia = 0;
+    float boton = 0, espia = 0;
     //______________________listas de posibles disparos_______
     QList<string> opciones;
     QList<string> disparos(double distancia, double alt_aliada, double altura_enemiga);
     QList<string> contrataque(double ve_x, double ve_y, double dis, double pos_y_enemiga, double pos_y_propia, double retraso);
     double velocidad_x,velocidad_y;
     string valor;
+    float espacio;
 
 public slots:
     void actualizar_central();

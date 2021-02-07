@@ -395,7 +395,101 @@ void MainWindow::actualizar_central()
         }
     }
     if (boton == 5 && balas.size() > 0){
-        if (time >= 3 ){
+        espacio += 0.01;
+        //______________________Agregarciones_______________
+        if (repeticion == true){
+            if (espacio < 3 && espacio >= 2 && balas.size() == 1){
+                //Se crea una nueva respuesta_ al ofensivo
+                //-----------------------------------------------Calculo de respuesta----
+                tipo = 0.025;
+                radio = distancia * tipo;
+                opciones.clear();
+                //_______________________________Calculo con el retraso_________________
+                espia = 0.1; //Tiempo de retraso
+                altura_diparo = alt_ofe + (balas[0]->vel_y*time)-((9.81*pow(time,2))/2);;
+                velocidad_y =  balas[0]->vel_y - (9.81*time);; //Ecuacion de la velocidad en un determinado tiempo
+                distancia_dis = distancia - (balas.at(0)->getEsf()->VX*time); //distanacia al tiempo espia
+                //______________________________________________________________________
+                opciones = contrataque(balas.at(0)->getEsf()->VX,velocidad_y,distancia_dis,altura_diparo,alt_def,espia);
+                if (opciones.size() > 0){
+                    valor = opciones.at(opciones.size() * 0.2);
+                    velocidad_x = stod(valor.substr(0,valor.find(' ')));
+                    valor = valor.substr(valor.find(' ')+1,valor.find('R'));
+                    velocidad_y = stod(valor.substr(0,valor.find(' ')));
+                    //-----------------------------------------------------
+                    balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
+                    balas.back()->color = 3;
+                    balas.back()->setPos(suelo_def->x + suelo_def->w/2,720 - suelo_def->h);
+                    scene->addItem(balas.back());
+                    balas.back()->ingreso(velocidad_x*(-1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
+                    timer->start(ui->crono->value());
+                    ui->tiempo->setText(QString::number(time));
+                    //---------------------------------------------------
+                    ocho.push_back(new bullet(this));
+                    ocho.back()->actualizar(balas.back()->getEsf()->PX,balas.back()->getEsf()->PY);
+                    scene->addItem(ocho.back());
+                    //---------------------------------------------------
+                }
+            }
+            else if (espacio >= 3) {
+                //-----------------------------------------------Calculo de respuesta _NEURALIZADOR_----
+                tipo = 0.005;
+                radio = distancia * tipo;
+                opciones.clear();
+                //_______________________________Calculo con el retraso_________________
+                espia = 0.1; //Tiempo de retraso
+                altura_diparo = alt_def + (balas[1]->vel_y*(espacio-2))-((9.81*pow(espacio-2,2))/2);
+                velocidad_y = balas[1]->vel_y  - (9.81*(espacio-2)); //Ecuacion de la velocidad en un determinado tiempo
+                distancia_dis = distancia - ((balas.at(1)->getEsf()->VX * (-1))*(espacio-2)); //distanacia al tiempo espia
+                //______________________________________________________________________
+                opciones = contrataque(balas.at(1)->getEsf()->VX*(-1),velocidad_y,distancia_dis,altura_diparo,alt_ofe,espia);
+                if (opciones.size() > 0){
+                    valor = opciones.at(opciones.size() * 0.1);
+                    velocidad_x = stod(valor.substr(0,valor.find(' ')));
+                    valor = valor.substr(valor.find(' ')+1,valor.find('R'));
+                    velocidad_y = stod(valor.substr(0,valor.find(' ')));
+                    //-----------------------------------------------------
+                    balas.push_back(new bala(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y,radio));
+                    balas.back()->color = 1;
+                    balas.back()->setPos(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->h);
+                    scene->addItem(balas.back());
+                    balas.back()->ingreso(velocidad_x*(1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
+                    timer->start(ui->crono->value());
+                    ui->tiempo->setText(QString::number(time));
+                    //---------------------------------------------------
+                    ocho.push_back(new bullet(this));
+                    ocho.back()->actualizar(balas.back()->getEsf()->PX,balas.back()->getEsf()->PY);
+                    scene->addItem(ocho.back());
+                    //---------------------------------------------------
+                }
+                repeticion = false;
+            }
+        }
+        //___________________________________________________
+        if (espacio < 2){
+            bala *bal = balas[0];
+            fisicas *fis = bal->getEsf();
+            bal->tiempo_bala += 0.01;
+            bal->rango += 1;
+            bal->actualizar(bal->tiempo_bala,bal->vel_y);
+            ocho.at(0)->actualizar(fis->PX,fis->PY);
+            ui->tiempo->setText(QString::number(time));
+            //----------------------------------------
+            if (fis->PY <= 12){
+                for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
+                bal->ubi.clear();
+                balas.removeAt(0);
+                ocho.at(0);
+            }
+            //_________________________________________
+            if (bal->rango == 10){//rango de imprecion de paso
+                bal->ubi.push_back(new rastro());
+                bal->ubi.back()->posicion(fis->PX,fis->PY);
+                scene->addItem(bal->ubi.back());
+                bal->rango = 0;
+            }
+        }
+        else if (espacio < 3 && espacio >= 2){
             for (int i = 0; i < balas.size(); i++){
                 bala *bal = balas[i];
                 fisicas *fis = bal->getEsf();
@@ -419,7 +513,7 @@ void MainWindow::actualizar_central()
                     bal->rango = 0;
                 }
             }
-            if (balas[0]->collidesWithItem(ran_def)){
+            if (balas[0]->collidesWithItem(balas[1])){
                 scene->removeItem(balas[0]);
                 scene->removeItem(balas[1]);
                 for (int a=0; a < balas.at(0)->ubi.size();a++){scene->removeItem(balas.at(0)->ubi[a]);}
@@ -429,47 +523,26 @@ void MainWindow::actualizar_central()
                 ocho.removeAt(1);
                 ocho.removeAt(0);
                 balas.removeAt(1);
+                balas.removeAt(0);
+                boton = 1;
+                val = "";
+                val += "Fallo en el ataque";
+                QMessageBox::about (this,"Parcial Final", val);
+            }
+            else if (balas[0]->collidesWithItem(ran_def)){
+                scene->removeItem(balas[0]);
+                for (int a=0; a < balas.at(0)->ubi.size();a++){scene->removeItem(balas.at(0)->ubi[a]);}
+                scene->removeItem(ocho[0]);
+                ocho.removeAt(0);
                 balas.removeAt(0);
                 boton = 1;
                 val = "";
                 val += "Cañon defensivo derribado";
                 QMessageBox::about (this,"Parcial Final", val);
             }
-            else if (balas[0]->collidesWithItem(balas[1])){
-                scene->removeItem(balas[0]);
-                scene->removeItem(balas[1]);
-                for (int a=0; a < balas.at(0)->ubi.size();a++){scene->removeItem(balas.at(0)->ubi[a]);}
-                for (int a=0; a < balas.at(1)->ubi.size();a++){scene->removeItem(balas.at(1)->ubi[a]);}
-                scene->removeItem(ocho[0]);
-                scene->removeItem(ocho[1]);
-                ocho.removeAt(1);
-                ocho.removeAt(0);
-                balas.removeAt(1);
-                balas.removeAt(0);
-                boton = 1;
-                val = "";
-                val += "Bala ofensiva fallida";
-                QMessageBox::about (this,"Parcial Final", val);
-            }
-            else if (balas[1]->collidesWithItem(balas[2])){
-                scene->removeItem(balas[2]);
-                scene->removeItem(balas[1]);
-                for (int a=0; a < balas.at(2)->ubi.size();a++){scene->removeItem(balas.at(2)->ubi[a]);}
-                for (int a=0; a < balas.at(1)->ubi.size();a++){scene->removeItem(balas.at(1)->ubi[a]);}
-                scene->removeItem(ocho[2]);
-                scene->removeItem(ocho[1]);
-                ocho.removeAt(2);
-                ocho.removeAt(1);
-                balas.removeAt(2);
-                balas.removeAt(1);
-                boton = 2;
-                val = "";
-                val += "Neutralizacion completa";
-                QMessageBox::about (this,"Parcial Final", val);
-            }
         }
-        else if (time >= 2 ){
-            for (int i = 0; i < 2; i++){
+        else if (balas.size() > 0){
+            for (int i = 0; i < balas.size(); i++){
                 bala *bal = balas[i];
                 fisicas *fis = bal->getEsf();
                 bal->tiempo_bala += 0.01;
@@ -492,7 +565,7 @@ void MainWindow::actualizar_central()
                     bal->rango = 0;
                 }
             }
-            if (balas[0]->collidesWithItem(ran_def)){
+            if (balas[0]->collidesWithItem(balas[1])){
                 scene->removeItem(balas[0]);
                 scene->removeItem(balas[1]);
                 for (int a=0; a < balas.at(0)->ubi.size();a++){scene->removeItem(balas.at(0)->ubi[a]);}
@@ -504,42 +577,34 @@ void MainWindow::actualizar_central()
                 balas.removeAt(1);
                 balas.removeAt(0);
                 boton = 1;
+                val = "";
+                val += "Fallo en el ataque";
+                QMessageBox::about (this,"Parcial Final", val);
             }
-            else if (balas[0]->collidesWithItem(balas[1])){
+            else if (balas[0]->collidesWithItem(ran_def)){
                 scene->removeItem(balas[0]);
-                scene->removeItem(balas[1]);
                 for (int a=0; a < balas.at(0)->ubi.size();a++){scene->removeItem(balas.at(0)->ubi[a]);}
-                for (int a=0; a < balas.at(1)->ubi.size();a++){scene->removeItem(balas.at(1)->ubi[a]);}
                 scene->removeItem(ocho[0]);
-                scene->removeItem(ocho[1]);
-                ocho.removeAt(1);
                 ocho.removeAt(0);
-                balas.removeAt(1);
                 balas.removeAt(0);
                 boton = 1;
+                val = "";
+                val += "Cañon defensivo derribado";
+                QMessageBox::about (this,"Parcial Final", val);
             }
-        }
-        else {
-            bala *bal = balas[0];
-            fisicas *fis = bal->getEsf();
-            bal->tiempo_bala += 0.01;
-            bal->rango += 1;
-            bal->actualizar(bal->tiempo_bala,bal->vel_y);
-            ocho.at(0)->actualizar(fis->PX,fis->PY);
-            ui->tiempo->setText(QString::number(time));
-            //----------------------------------------
-            if (fis->PY <= 12){
-                for (int a=0; a < bal->ubi.size();a++){scene->removeItem(bal->ubi[a]);}
-                bal->ubi.clear();
-                balas.removeAt(0);
-                ocho.at(0);
-            }
-            //_________________________________________
-            if (bal->rango == 10){//rango de imprecion de paso
-                bal->ubi.push_back(new rastro());
-                bal->ubi.back()->posicion(fis->PX,fis->PY);
-                scene->addItem(bal->ubi.back());
-                bal->rango = 0;
+            else if (balas[2]->collidesWithItem(balas[1])){
+                scene->removeItem(balas[2]);
+                scene->removeItem(balas[1]);
+                for (int a=0; a < balas.at(2)->ubi.size();a++){scene->removeItem(balas.at(2)->ubi[a]);}
+                for (int a=0; a < balas.at(1)->ubi.size();a++){scene->removeItem(balas.at(1)->ubi[a]);}
+                scene->removeItem(ocho[2]);
+                scene->removeItem(ocho[1]);
+                ocho.removeAt(2);
+                ocho.removeAt(1);
+                balas.removeAt(2);
+                balas.removeAt(1);
+                espacio = 0;
+                repeticion = true;
             }
         }
     }
@@ -680,8 +745,8 @@ void MainWindow::on_simple_clicked()
     if (avanzar == true){
         //-----------------------------------------------------------------------------------------------
         boton = 3;
-        tipo = 0.05;
         time = 0;
+        tipo = 0.05;
         radio = distancia * tipo;
         //________Calculo de disparo___________________________
         opciones = disparos(distancia,alt_ofe,alt_def);
@@ -707,7 +772,7 @@ void MainWindow::on_simple_clicked()
             opciones.clear();
             //_______________________________Calculo con el retraso_________________
             espia = 2; //Tiempo de retraso
-            altura_diparo = alt_ofe + (velocidad_y*espia)-((9.81*pow(time,2))/2);;
+            altura_diparo = alt_ofe + (velocidad_y*espia)-((9.81*pow(espia,2))/2);;
             velocidad_y -= (9.81*espia);; //Ecuacion de la velocidad en un determinado tiempo
             distancia_dis = distancia - (velocidad_x*espia); //distanacia al tiempo espia
             //______________________________________________________________________
@@ -963,6 +1028,7 @@ void MainWindow::on_simulacion_clicked()
     if (avanzar == true){
         //-----------------------------------------------------------------------------------------------
         boton = 5;
+        espacio = 0;
         time = 0;
         tipo = 0.05;
         radio = distancia * tipo;
@@ -1002,7 +1068,7 @@ void MainWindow::on_simulacion_clicked()
                 velocidad_y = stod(valor.substr(0,valor.find(' ')));
                 //-----------------------------------------------------
                 balas.push_back(new bala(suelo_def->x + suelo_def->w/2,720 - suelo_def->y,radio));
-                balas.back()->color = 2;
+                balas.back()->color = 3;
                 balas.back()->setPos(suelo_def->x + suelo_def->w/2,720 - suelo_def->h);
                 scene->addItem(balas.back());
                 balas.back()->ingreso(velocidad_x*(-1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
@@ -1032,7 +1098,7 @@ void MainWindow::on_simulacion_clicked()
                 velocidad_y = stod(valor.substr(0,valor.find(' ')));
                 //-----------------------------------------------------
                 balas.push_back(new bala(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->y,radio));
-                balas.back()->color = 2;
+                balas.back()->color = 1;
                 balas.back()->setPos(suelo_ofe->x + suelo_ofe->w/2,720 - suelo_ofe->h);
                 scene->addItem(balas.back());
                 balas.back()->ingreso(velocidad_x*(1),velocidad_y);//Aqui ingreso una velocidad en X y una velocidad en Y
@@ -1073,6 +1139,7 @@ void MainWindow::on_pushButton_clicked()
 {
     if (avanzar == true){
         boton = 1;
+        espacio = 0;
         //-----------------------------------------------------------------------------------------------
         velocidad_x = cos((ui->ang->value()*PI)/180) * ui->vel->value();
         velocidad_y = sin((ui->ang->value()*PI)/180) * ui->vel->value();

@@ -103,20 +103,15 @@ public:
         QFont font;
         font.setFamily(QString::fromUtf8("Verdana"));
         font.setPointSize(12);
-        font.setBold(false);
-        font.setWeight(50);
+        font.setBold(true);
+        font.setWeight(75);
         label_5->setFont(font);
 
         gridLayout->addWidget(label_5, 2, 0, 1, 2);
 
         label_7 = new QLabel(widget);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("Verdana"));
-        font1.setPointSize(12);
-        font1.setBold(true);
-        font1.setWeight(75);
-        label_7->setFont(font1);
+        label_7->setFont(font);
 
         gridLayout->addWidget(label_7, 1, 1, 1, 1);
 
@@ -129,49 +124,49 @@ public:
 
         tiempo = new QLabel(widget);
         tiempo->setObjectName(QString::fromUtf8("tiempo"));
-        tiempo->setFont(font1);
+        tiempo->setFont(font);
 
         gridLayout->addWidget(tiempo, 1, 0, 1, 1);
 
         label_6 = new QLabel(widget);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setFont(font1);
+        label_6->setFont(font);
 
         gridLayout->addWidget(label_6, 3, 1, 1, 1);
 
         label_4 = new QLabel(widget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setFont(font1);
+        label_4->setFont(font);
 
         gridLayout->addWidget(label_4, 0, 0, 1, 2);
 
         lanzar = new QPushButton(widget);
         lanzar->setObjectName(QString::fromUtf8("lanzar"));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("Verdana"));
-        font2.setPointSize(10);
-        font2.setBold(true);
-        font2.setWeight(75);
-        lanzar->setFont(font2);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Verdana"));
+        font1.setPointSize(10);
+        font1.setBold(true);
+        font1.setWeight(75);
+        lanzar->setFont(font1);
 
         gridLayout->addWidget(lanzar, 4, 0, 1, 2);
 
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(20, 750, 120, 40));
-        pushButton->setFont(font1);
+        pushButton->setFont(font);
         man_ofe = new QRadioButton(centralwidget);
         man_ofe->setObjectName(QString::fromUtf8("man_ofe"));
         man_ofe->setGeometry(QRect(160, 750, 150, 40));
-        man_ofe->setFont(font1);
+        man_ofe->setFont(font);
         man_def = new QRadioButton(centralwidget);
         man_def->setObjectName(QString::fromUtf8("man_def"));
         man_def->setGeometry(QRect(330, 750, 150, 40));
-        man_def->setFont(font1);
+        man_def->setFont(font);
         label_8 = new QLabel(centralwidget);
         label_8->setObjectName(QString::fromUtf8("label_8"));
         label_8->setGeometry(QRect(500, 750, 120, 40));
-        label_8->setFont(font1);
+        label_8->setFont(font);
         vel = new QDoubleSpinBox(centralwidget);
         vel->setObjectName(QString::fromUtf8("vel"));
         vel->setGeometry(QRect(620, 750, 120, 40));
@@ -179,11 +174,11 @@ public:
         label_10 = new QLabel(centralwidget);
         label_10->setObjectName(QString::fromUtf8("label_10"));
         label_10->setGeometry(QRect(760, 750, 200, 40));
-        label_10->setFont(font1);
+        label_10->setFont(font);
         label_11 = new QLabel(centralwidget);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         label_11->setGeometry(QRect(980, 750, 120, 40));
-        label_11->setFont(font1);
+        label_11->setFont(font);
         ang = new QDoubleSpinBox(centralwidget);
         ang->setObjectName(QString::fromUtf8("ang"));
         ang->setGeometry(QRect(1120, 750, 120, 40));
@@ -192,7 +187,7 @@ public:
         label_12 = new QLabel(centralwidget);
         label_12->setObjectName(QString::fromUtf8("label_12"));
         label_12->setGeometry(QRect(1260, 750, 120, 40));
-        label_12->setFont(font1);
+        label_12->setFont(font);
         widget1 = new QWidget(centralwidget);
         widget1->setObjectName(QString::fromUtf8("widget1"));
         widget1->setGeometry(QRect(1290, 11, 297, 187));
@@ -201,7 +196,7 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(widget1);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setFont(font1);
+        label->setFont(font);
 
         verticalLayout->addWidget(label);
 
@@ -209,33 +204,33 @@ public:
         distancia->setObjectName(QString::fromUtf8("distancia"));
         distancia->setMinimum(102.000000000000000);
         distancia->setMaximum(4800.000000000000000);
-        distancia->setValue(300.000000000000000);
+        distancia->setValue(102.000000000000000);
 
         verticalLayout->addWidget(distancia);
 
         label_2 = new QLabel(widget1);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setFont(font1);
+        label_2->setFont(font);
 
         verticalLayout->addWidget(label_2);
 
         alt_def = new QDoubleSpinBox(widget1);
         alt_def->setObjectName(QString::fromUtf8("alt_def"));
         alt_def->setMaximum(720.000000000000000);
-        alt_def->setValue(300.000000000000000);
+        alt_def->setValue(0.000000000000000);
 
         verticalLayout->addWidget(alt_def);
 
         label_3 = new QLabel(widget1);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setFont(font1);
+        label_3->setFont(font);
 
         verticalLayout->addWidget(label_3);
 
         alt_ofe = new QDoubleSpinBox(widget1);
         alt_ofe->setObjectName(QString::fromUtf8("alt_ofe"));
         alt_ofe->setMaximum(720.000000000000000);
-        alt_ofe->setValue(300.000000000000000);
+        alt_ofe->setValue(0.000000000000000);
 
         verticalLayout->addWidget(alt_ofe);
 
@@ -245,27 +240,27 @@ public:
         splitter->setOrientation(Qt::Vertical);
         defensivo = new QPushButton(splitter);
         defensivo->setObjectName(QString::fromUtf8("defensivo"));
-        defensivo->setFont(font2);
+        defensivo->setFont(font1);
         splitter->addWidget(defensivo);
         ofensivo = new QPushButton(splitter);
         ofensivo->setObjectName(QString::fromUtf8("ofensivo"));
-        ofensivo->setFont(font2);
+        ofensivo->setFont(font1);
         splitter->addWidget(ofensivo);
         simple = new QPushButton(splitter);
         simple->setObjectName(QString::fromUtf8("simple"));
-        simple->setFont(font2);
+        simple->setFont(font1);
         splitter->addWidget(simple);
         contrataque = new QPushButton(splitter);
         contrataque->setObjectName(QString::fromUtf8("contrataque"));
-        contrataque->setFont(font2);
+        contrataque->setFont(font1);
         splitter->addWidget(contrataque);
         neutralizar = new QPushButton(splitter);
         neutralizar->setObjectName(QString::fromUtf8("neutralizar"));
-        neutralizar->setFont(font2);
+        neutralizar->setFont(font1);
         splitter->addWidget(neutralizar);
         simulacion = new QPushButton(splitter);
         simulacion->setObjectName(QString::fromUtf8("simulacion"));
-        simulacion->setFont(font2);
+        simulacion->setFont(font1);
         splitter->addWidget(simulacion);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);

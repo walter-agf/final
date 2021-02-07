@@ -74,8 +74,8 @@
         <font>
          <family>Verdana</family>
          <pointsize>12</pointsize>
-         <weight>50</weight>
-         <bold>false</bold>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
@@ -380,7 +380,7 @@
         <double>4800.000000000000000</double>
        </property>
        <property name="value">
-        <double>300.000000000000000</double>
+        <double>102.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -405,7 +405,7 @@
         <double>720.000000000000000</double>
        </property>
        <property name="value">
-        <double>300.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -430,7 +430,7 @@
         <double>720.000000000000000</double>
        </property>
        <property name="value">
-        <double>300.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
       </widget>
      </item>
